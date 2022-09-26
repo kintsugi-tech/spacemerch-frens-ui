@@ -22,7 +22,7 @@
                 ]
             },
             {
-                "type": "X",
+                "type": "L",
                 "stock": 10,
                 "token": "3",
                 "ids": [
@@ -64,7 +64,7 @@
                 ]
             },
             {
-                "type": "X",
+                "type": "L",
                 "stock": 30,
                 "token": "6",
                 "ids": [
@@ -106,7 +106,7 @@
                 ]
             },
             {
-                "type": "X",
+                "type": "L",
                 "stock": 30,
                 "token": "6",
                 "ids": [
