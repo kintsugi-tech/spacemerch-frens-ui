@@ -50,7 +50,7 @@ export default function HookForm() {
       console.log(error)
       let message = "Address already minted";
       if (error.response.data !== undefined) {
-        message = error.response.data
+        message = error.response.data.error
       }
       setError(message)
     }
