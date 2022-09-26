@@ -32,7 +32,7 @@ export default function HookForm() {
       recepient: values.address
     };
 
-    let res = await axios.post(process.env.NEXT_PUBLIC_API_URL, data);
+    let res = await axios.post(process.env.NEXT_PUBLIC_API_URL+"/mint", data);
 
     if (res.data.transactionHash !== undefined) {
       setSuccess(`Minted! ${res.data.transactionHash}`)
