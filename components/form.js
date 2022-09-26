@@ -6,6 +6,8 @@ import {
   Input,
   Button,
   Select,
+  Alert,
+  AlertIcon,
 } from '@chakra-ui/react'
 import designs from '../data/designs.json';
 import { useEffect, useState } from 'react';
@@ -22,6 +24,9 @@ export default function HookForm() {
 
   const [sizes, setSizes] = useState([]);
 
+  const [success, setSuccess] = useState(null);
+  const [error, setError] = useState(null);
+  
   const watchFields = watch(["design"]);
 
   let onSubmit = async (values) => {
@@ -37,7 +42,7 @@ export default function HookForm() {
     if (res.data.transactionHash !== undefined) {
       setSuccess(`Minted! ${res.data.transactionHash}`)
     } else {
-      SpeechSynthesisErrorEvent("Error")
+      setError("Error")
     }
     console.log(res)
   }
@@ -63,10 +68,19 @@ export default function HookForm() {
     return () => subscription.unsubscribe();
   }, [watch]);
 
+  if (success !== null) {
+
+    return (
+      <Alert status='success'>
+        <AlertIcon />
+        {success}
+      </Alert>
+    )
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      
-
+    
       <FormControl isInvalid={errors.design} mb="4">
         <FormLabel htmlFor='name'>Design</FormLabel>
         <Select placeholder='Select Design' {...register("design")}>
