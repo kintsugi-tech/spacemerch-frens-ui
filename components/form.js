@@ -29,7 +29,7 @@ export default function HookForm() {
     let data = {
       size: values.size.toLowerCase(),
       model: values.design,
-      recepient: values.address
+      recipient: values.address
     };
 
     let res = await axios.post(process.env.NEXT_PUBLIC_API_URL+"/mint", data);
