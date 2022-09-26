@@ -48,9 +48,12 @@ export default function HookForm() {
       console.log(res)
     } catch (error) {
       console.log(error)
-      setError(`Address already minted an NFT`)
+      let message = "Address already minted";
+      if (error.response.data !== undefined) {
+        message = error.response.data
+      }
+      setError(message)
     }
-   
   }
 
   let loadSizes = (design_id) => {
