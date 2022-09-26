@@ -31,20 +31,25 @@ export default function HookForm() {
 
   let onSubmit = async (values) => {
 
-    let data = {
-      size: values.size.toLowerCase(),
-      model: values.design,
-      recipient: values.address
-    };
-
-    let res = await axios.post(process.env.NEXT_PUBLIC_API_URL+"/mint", data);
-
-    if (res.data.transactionHash !== undefined) {
-      setSuccess(`Minted! ${res.data.transactionHash}`)
-    } else {
-      setError("Error")
+    try {
+      let data = {
+        size: values.size.toLowerCase(),
+        model: values.design,
+        recipient: values.address
+      };
+  
+      let res = await axios.post(process.env.NEXT_PUBLIC_API_URL+"/mint", data);
+  
+      if (res.data.transactionHash !== undefined) {
+        setSuccess(`Minted! ${res.data.transactionHash}`)
+      } else {
+        throw new Error("Address already minted")
+      }
+      console.log(res)
+    } catch (error) {
+      setError(`Error: ${error}`)
     }
-    console.log(res)
+   
   }
 
   let loadSizes = (design_id) => {
@@ -79,6 +84,14 @@ export default function HookForm() {
   }
 
   return (
+    <>
+    {error && (
+      <Alert status='danger'>
+        <AlertIcon />
+        {error}
+      </Alert>
+    )}
+
     <form onSubmit={handleSubmit(onSubmit)}>
     
       <FormControl isInvalid={errors.design} mb="4">
@@ -120,5 +133,6 @@ export default function HookForm() {
         Mint NFT
       </Button>
     </form>
+    </>
   )
 }
