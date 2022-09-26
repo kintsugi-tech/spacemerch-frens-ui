@@ -47,7 +47,7 @@ export default function HookForm() {
       }
       console.log(res)
     } catch (error) {
-      setError(`Error: ${error}`)
+      setError(`Address already minted an NFT`)
     }
    
   }
