@@ -25,8 +25,20 @@ export default function HookForm() {
   const watchFields = watch(["design"]);
 
   let onSubmit = async (values) => {
-    let res = await axios.post(process.env.NEXT_PUBLIC_API_URL, values);
 
+    let data = {
+      size: values.size.toLowerCase(),
+      model: values.design,
+      recepient: values.address
+    };
+
+    let res = await axios.post(process.env.NEXT_PUBLIC_API_URL, data);
+
+    if (res.data.transactionHash !== undefined) {
+      setSuccess(`Minted! ${res.data.transactionHash}`)
+    } else {
+      SpeechSynthesisErrorEvent("Error")
+    }
     console.log(res)
   }
 

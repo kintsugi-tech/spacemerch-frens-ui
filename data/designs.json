@@ -1,7 +1,7 @@
 [
     {
         "name": "Stake like a fren",
-        "id": "lll",
+        "id": "creation",
         "sizes": [
             {
                 "type": "S",
@@ -29,12 +29,21 @@
                     "300",
                     "301"
                 ]
+            },
+            {
+                "type": "XL",
+                "stock": 10,
+                "token": "3",
+                "ids": [
+                    "300",
+                    "301"
+                ]
             }
         ]
     },
     {
-        "name": "Frens everywhere",
-        "id": "xxx",
+        "name": "Frens + Statue",
+        "id": "statue",
         "sizes": [
             {
                 "type": "S",
@@ -56,6 +65,57 @@
             },
             {
                 "type": "X",
+                "stock": 30,
+                "token": "6",
+                "ids": [
+                    "400",
+                    "401"
+                ]
+            },
+            {
+                "type": "XL",
+                "stock": 30,
+                "token": "6",
+                "ids": [
+                    "400",
+                    "401"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Frens everywhere",
+        "id": "allover",
+        "sizes": [
+            {
+                "type": "S",
+                "stock": 5,
+                "token": "4",
+                "ids": [
+                    "500",
+                    "501"
+                ]
+            },
+            {
+                "type": "M",
+                "stock": 20,
+                "token": "5",
+                "ids": [
+                    "600",
+                    "601"
+                ]
+            },
+            {
+                "type": "X",
+                "stock": 30,
+                "token": "6",
+                "ids": [
+                    "400",
+                    "401"
+                ]
+            },
+            {
+                "type": "XL",
                 "stock": 30,
                 "token": "6",
                 "ids": [
