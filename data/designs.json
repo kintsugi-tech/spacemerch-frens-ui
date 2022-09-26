@@ -1,0 +1,68 @@
+[
+    {
+        "name": "Stake like a fren",
+        "id": "lll",
+        "sizes": [
+            {
+                "type": "S",
+                "stock": 10,
+                "token": "1",
+                "ids": [
+                    "100",
+                    "101"
+                ]
+            },
+            {
+                "type": "M",
+                "stock": 10,
+                "token": "2",
+                "ids": [
+                    "200",
+                    "201"
+                ]
+            },
+            {
+                "type": "X",
+                "stock": 10,
+                "token": "3",
+                "ids": [
+                    "300",
+                    "301"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Frens everywhere",
+        "id": "xxx",
+        "sizes": [
+            {
+                "type": "S",
+                "stock": 5,
+                "token": "4",
+                "ids": [
+                    "500",
+                    "501"
+                ]
+            },
+            {
+                "type": "M",
+                "stock": 20,
+                "token": "5",
+                "ids": [
+                    "600",
+                    "601"
+                ]
+            },
+            {
+                "type": "X",
+                "stock": 30,
+                "token": "6",
+                "ids": [
+                    "400",
+                    "401"
+                ]
+            }
+        ]
+    }
+]
