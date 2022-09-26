@@ -86,7 +86,7 @@ export default function HookForm() {
   return (
     <>
     {error && (
-      <Alert status='danger'>
+      <Alert status='error' mb="4">
         <AlertIcon />
         {error}
       </Alert>
