@@ -9,9 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.10",
     "@chakra-ui/react": "^2.3.4",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@fontsource/m-plus-rounded-1c": "^4.5.9",
+    "@fontsource/montserrat": "^4.5.12",
+    "@fontsource/open-sans": "^4.5.11",
+    "@fontsource/raleway": "^4.5.10",
     "axios": "^0.27.2",
     "framer-motion": "^6",
     "next": "12.3.1",
