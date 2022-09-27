@@ -25,9 +25,17 @@ export default function HookForm() {
   } = useForm();
 
   const [sizes, setSizes] = useState([]);
-
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
+  const [minted, setMinted] = useState("false");
+
+  useEffect(() => {
+    // storing input name
+    let already_minted = localStorage.getItem("minted");
+    if (already_minted == "true") {
+      setMinted("true");
+    }
+  }, []);
 
   const watchFields = watch(["design"]);
 
@@ -45,6 +53,7 @@ export default function HookForm() {
       );
 
       if (res.data.transactionHash !== undefined) {
+        localStorage.setItem("minted", "true");
         setSuccess(res.data.transactionHash);
       } else {
         throw new Error("Address already minted");
@@ -78,6 +87,17 @@ export default function HookForm() {
     });
     return () => subscription.unsubscribe();
   }, [watch]);
+
+  if (minted === "true") {
+    return (
+      <Flex direction="column" justify="center" align="center" maxW="300px">
+        <Alert status="success">
+          <AlertIcon />
+          You have already minted the NFT!
+        </Alert>
+      </Flex>
+    );
+  }
 
   if (success !== null) {
     return (
