@@ -4,7 +4,7 @@ import HookForm from '../components/form'
 
 const Home: NextPage = () => {
   return (
-      <Flex color="brand.100" bgColor="brand.900" pt='50px' pb='50px' align='center' justify='center' direction='column'>
+      <Flex color="brand.100" minHeight="100vh" bgColor="brand.900" pt='50px' pb='50px' align='center' justify='center' direction='column'>
           <Heading  pb='30px'>SpaceMerch x frens</Heading>
           <Image h='50px'  w='auto' mb='25px' src='/cosmoverse.png' alt='stakinglikeafren'/>
           <Text pr='20px' pl='20px' pb='25px' textAlign='center'>Get you NFT now, reedem for real merch on Wednesday!</Text>
