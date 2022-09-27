@@ -1,4 +1,6 @@
-import { useForm } from 'react-hook-form'
+import { useForm } from "react-hook-form";
+import { Flex, Link } from "@chakra-ui/react";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 import {
   FormErrorMessage,
   FormLabel,
@@ -8,9 +10,9 @@ import {
   Select,
   Alert,
   AlertIcon,
-} from '@chakra-ui/react'
-import designs from '../data/designs.json';
-import { useEffect, useState } from 'react';
+} from "@chakra-ui/react";
+import designs from "../data/designs.json";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function HookForm() {
@@ -20,123 +22,172 @@ export default function HookForm() {
     watch,
     resetField,
     formState: { errors, isSubmitting },
-  } = useForm()
+  } = useForm();
 
   const [sizes, setSizes] = useState([]);
 
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
-  
+
   const watchFields = watch(["design"]);
 
   let onSubmit = async (values) => {
-
     try {
       let data = {
         size: values.size.toLowerCase(),
         model: values.design,
-        recipient: values.address
+        recipient: values.address,
       };
-  
-      let res = await axios.post(process.env.NEXT_PUBLIC_API_URL+"/mint", data);
-  
+
+      let res = await axios.post(
+        process.env.NEXT_PUBLIC_API_URL + "/mint",
+        data
+      );
+
       if (res.data.transactionHash !== undefined) {
-        setSuccess(`Minted! ${res.data.transactionHash}`)
+        setSuccess(res.data.transactionHash);
       } else {
-        throw new Error("Address already minted")
+        throw new Error("Address already minted");
       }
-      console.log(res)
+      console.log(res);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       let message = "Address already minted";
       if (error.response.data !== undefined) {
-        message = error.response.data.error
+        message = error.response.data.error;
       }
-      setError(message)
+      setError(message);
     }
-  }
+  };
 
   let loadSizes = (design_id) => {
-    setSizes([])
+    setSizes([]);
     let design = designs.find((el) => el.id === design_id);
 
     if (design !== undefined) {
-        setSizes(design.sizes)
+      setSizes(design.sizes);
     }
-  }
+  };
 
   useEffect(() => {
-    const subscription = watch((value, {name}) => {
-
-        if (name === "design") {
-            resetField("size")
-            loadSizes(value.design)
-        }
-        
+    const subscription = watch((value, { name }) => {
+      if (name === "design") {
+        resetField("size");
+        loadSizes(value.design);
+      }
     });
     return () => subscription.unsubscribe();
   }, [watch]);
 
   if (success !== null) {
-
     return (
-      <Alert status='success'>
-        <AlertIcon />
-        {success}
-      </Alert>
-    )
+      <Flex direction="column" justify="center" align="center" maxW="300px">
+        <Alert status="success">
+          <AlertIcon />
+          <Link href={"https://www.mintscan.io/stargaze/txs/" + success}>
+            Minted! Check the tx 🚀
+          </Link>
+        </Alert>
+      </Flex>
+    );
   }
 
   return (
-    <>
-    {error && (
-      <Alert status='error' mb="4">
-        <AlertIcon />
-        {error}
-      </Alert>
-    )}
+    <Flex direction="column" justify="center" align="center">
+      {error && (
+        <Alert status="error" mb="4" maxW="300px">
+          <AlertIcon />
+          {error}
+        </Alert>
+      )}
 
-    <form onSubmit={handleSubmit(onSubmit)}>
-    
-      <FormControl isInvalid={errors.design} mb="4">
-        <FormLabel htmlFor='name'>Design</FormLabel>
-        <Select placeholder='Select Design' {...register("design")}>
-            {designs.map((el) => (<option key={el.id} value={el.id}>{el.name}</option>))}
-        </Select>
-        <FormErrorMessage>
-          {errors.design && errors.design.message}
-        </FormErrorMessage>
-      </FormControl>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormControl mb="20px" isInvalid={errors.design} maxW="300px">
+          <FormLabel fontWeight="bold" htmlFor="name">
+            Design
+          </FormLabel>
+          <Select
+            bgColor="brand.200"
+            borderWidth="2px"
+            borderColor="brand.100"
+            placeholder="Select Design"
+            _hover={{
+              borderColor: "brand.300",
+            }}
+            {...register("design")}
+          >
+            {designs.map((el) => (
+              <option key={el.id} value={el.id}>
+                {el.name}
+              </option>
+            ))}
+          </Select>
+          <FormErrorMessage>
+            {errors.design && errors.design.message}
+          </FormErrorMessage>
+        </FormControl>
 
-      <FormControl isInvalid={errors.size} mb="4">
-        <FormLabel htmlFor='name'>Size</FormLabel>
-        <Select placeholder='Select Size' {...register("size")}>
-            {sizes.map((el) => (<option key={el.type} value={el.type}>{el.type}</option>))}
-        </Select>
-        <FormErrorMessage>
-          {errors.size && errors.size.message}
-        </FormErrorMessage>
-      </FormControl>
+        <FormControl mb="25px" isInvalid={errors.size} maxW="300px">
+          <FormLabel fontWeight="bold" htmlFor="name">
+            Size
+          </FormLabel>
+          <Select
+            bgColor="brand.200"
+            borderWidth="2px"
+            borderColor="brand.100"
+            placeholder="Select Size"
+            _hover={{
+              borderColor: "brand.300",
+            }}
+            {...register("size")}
+          >
+            {sizes.map((el) => (
+              <option key={el.type} value={el.type}>
+                {el.type}
+              </option>
+            ))}
+          </Select>
+          <FormErrorMessage>
+            {errors.size && errors.size.message}
+          </FormErrorMessage>
+        </FormControl>
 
-      <FormControl isInvalid={errors.address} mb="4">
-        <FormLabel htmlFor='name'>Address</FormLabel>
-        <Input
-          id='address'
-          placeholder='stars1...'
-          {...register('address', {
-            required: 'This is required',
-            minLength: { value: 4, message: 'Minimum length should be 4' },
-          })}
-        />
-        <FormErrorMessage>
-          {errors.address && errors.address.message}
-        </FormErrorMessage>
-      </FormControl>
+        <FormControl mb="50px" isInvalid={errors.address}>
+          <FormLabel fontWeight="bold" htmlFor="name">
+            Address
+          </FormLabel>
+          <Input
+            bgColor="brand.200"
+            borderWidth="2px"
+            borderColor="brand.100"
+            id="address"
+            _hover={{
+              borderColor: "brand.300",
+            }}
+            placeholder="stars1..."
+            {...register("address", {
+              required: "This is required",
+              minLength: { value: 4, message: "Minimum length should be 4" },
+            })}
+          />
+          <FormErrorMessage>
+            {errors.address && errors.address.message}
+          </FormErrorMessage>
+        </FormControl>
 
-      <Button mt={4} colorScheme='yellow' isLoading={isSubmitting} type='submit' width={"100%"}>
-        Mint NFT
-      </Button>
-    </form>
-    </>
-  )
+        <Button
+          bgColor="brand.100"
+          color="brand.200"
+          isLoading={isSubmitting}
+          type="submit"
+          width={"100%"}
+          _hover={{
+            bgColor: "brand.300",
+          }}
+        >
+          Mint NFT
+        </Button>
+      </form>
+    </Flex>
+  );
 }
